@@ -1,5 +1,6 @@
 package com.ufrest.Util;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufrest.CourseResource.CoursesWrapper;
 import com.ufrest.ResponseObject;
@@ -17,10 +18,11 @@ public class RequestCaller {
     private static URL url;
     private static HttpURLConnection connection = null;
     private static StringBuffer data = new StringBuffer();
+    private static ObjectMapper objectMapper = new ObjectMapper();
     private static int status = 0;
 
     public static Object callSOC(String scheduleOfCoursesURL, Map<String, String> requestParameters) {
-        CoursesWrapper[] coursesWrapper = new CoursesWrapper[1];
+        CoursesWrapper[] coursesWrapper;
 
         try {
             url = new URL(scheduleOfCoursesURL);
@@ -28,32 +30,16 @@ public class RequestCaller {
             connection.setRequestMethod("GET");
             status = connection.getResponseCode();
 
-            BufferedReader inputStream = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-
-            while ((inputLine = inputStream.readLine()) != null) {
-                data.append(inputLine);
-            }
-
-            inputStream.close();
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            // TODO: Fix me - courseWrapper is not getting populated correctly and I have no idea why
-            coursesWrapper = objectMapper.readValue(data.toString(), CoursesWrapper[].class);
-        } catch (MalformedURLException e) {
-            // TODO: Handle error
-        } catch (IOException e) {
-            // TODO: Handle error
+            coursesWrapper = objectMapper.readValue(url, CoursesWrapper[].class);
         } catch (Exception e) {
-            // TODO: Handle error
-        }
-        finally {
+            return ErrorHandler.getExceptionResponse(e);
+        } finally {
             if (connection != null) {
                 connection.disconnect();
             }
         }
 
-        // Since courseWrapper is not getting set correctly, return the entire String for now
-        return new ResponseObject(true, status, data.toString(), "Here is your data");
+        return new ResponseObject(true, status, coursesWrapper[0], "Data successfully retrieved from " + scheduleOfCoursesURL);
     }
+
 }

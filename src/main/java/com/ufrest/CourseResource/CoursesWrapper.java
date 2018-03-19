@@ -1,5 +1,6 @@
 package com.ufrest.CourseResource;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 /* This class is the top level object received from the SOC API call and contains the list of course objects
  * along with details about the number of remaining results
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CoursesWrapper {
     @JsonProperty("COURSES")
     private List<Course> courses;

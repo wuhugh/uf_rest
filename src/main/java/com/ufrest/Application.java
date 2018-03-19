@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Controller
 @SpringBootApplication
+@SuppressWarnings("unused")
 public class Application implements ErrorController  {
 
     public static void main(String args[]) throws Exception {

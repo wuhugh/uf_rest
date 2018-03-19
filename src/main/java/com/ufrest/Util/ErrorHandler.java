@@ -7,8 +7,8 @@ public class ErrorHandler {
         return new ResponseObject(false, 404, null, message);
     }
 
-    public static Object getExceptionResponse(String message) {
-        return new ResponseObject(false, 500, null, message);
+    public static Object getExceptionResponse(Throwable throwable) {
+        return new ResponseObject(false, 500, null, throwable.getMessage());
     }
 }
 

@@ -1,26 +1,31 @@
 package com.ufrest.CourseResource;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class Section {
     private String number = "";
     private String classNumber = "";
     private String gradBasis = "";
     private String acadCareer = "";
     private String display = "";
-    private int credits = 0;
+    private String credits = "";
     private int credits_min = 0;
     private int credits_max = 0;
     private String note = "";
-    private String dnote = "";
+    private String dNote = "";
     private ArrayList<String> genEd = new ArrayList<>();
     private String sectWeb = "";
     private String rotateTitle = "";
     private int deptCode = 0;
     private String deptName = "";
-    private int courseFee = 0;
+    private String courseFee = "";
     private String lateFlag = "";
+    @JsonProperty("EEP")
     private String EEP = "";
+    @JsonProperty("LMS")
     private String LMS = "";
     private ArrayList<Instructor> instructors = new ArrayList<>();
     private ArrayList<MeetTime> meetTimes = new ArrayList<>();
@@ -68,11 +73,11 @@ public class Section {
         this.display = display;
     }
 
-    public int getCredits() {
+    public String getCredits() {
         return credits;
     }
 
-    public void setCredits(int credits) {
+    public void setCredits(String credits) {
         this.credits = credits;
     }
 
@@ -100,12 +105,12 @@ public class Section {
         this.note = note;
     }
 
-    public String getDnote() {
-        return dnote;
+    public String getdNote() {
+        return dNote;
     }
 
-    public void setDnote(String dnote) {
-        this.dnote = dnote;
+    public void setdNote(String dNote) {
+        this.dNote = dNote;
     }
 
     public ArrayList<String> getGenEd() {
@@ -148,11 +153,11 @@ public class Section {
         this.deptName = deptName;
     }
 
-    public int getCourseFee() {
+    public String getCourseFee() {
         return courseFee;
     }
 
-    public void setCourseFee(int courseFee) {
+    public void setCourseFee(String courseFee) {
         this.courseFee = courseFee;
     }
 
