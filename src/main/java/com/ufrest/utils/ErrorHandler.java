@@ -1,4 +1,4 @@
-package com.ufrest.Util;
+package com.ufrest.utils;
 
 import com.ufrest.ResponseObject;
 

@@ -1,8 +1,8 @@
 package com.ufrest;
 
-import com.ufrest.Util.ErrorHandler;
-import com.ufrest.Util.ParameterStringBuilder;
-import com.ufrest.Util.RequestCaller;
+import com.ufrest.utils.ErrorHandler;
+import com.ufrest.utils.ParameterStringBuilder;
+import com.ufrest.utils.RequestCaller;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.error.ErrorController;

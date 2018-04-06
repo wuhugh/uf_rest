@@ -1,4 +1,4 @@
-package com.ufrest.Util;
+package com.ufrest.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufrest.resources.UFResponse;
