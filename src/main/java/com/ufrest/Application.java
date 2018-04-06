@@ -44,8 +44,14 @@ public class Application implements ErrorController  {
             requestParameters.put("term", year + "5");
         }
         else if (semester.toUpperCase().equals("FALL")) {
-            requestParameters.put("category", "CWSP"); // The "regular" program is CWSP for this semester
-            requestParameters.put("term", "2188"); // For some reason the API is missing the 0 from 2018
+            if (year.equals("2018")) {
+                requestParameters.put("category", "CWSP"); // The "regular" program is CWSP for this semester
+                requestParameters.put("term", "2188"); // For some reason the API is missing the 0 from 2018
+            }
+            else {
+                requestParameters.put("category", "RES");
+                requestParameters.put("term", year + "8");
+            }
         }
         else {
             return ErrorHandler.get404ErrorResponse("Semester value not found");
