@@ -1,11 +1,13 @@
-package com.ufrest.utils;
+package com.ufrest.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
-/* Credits to baeldung
+/**
+ * Credits to baeldung
  * http://www.baeldung.com/java-http-request
+ * Converts a Map to a URL appendable query string
  */
 public class ParameterStringBuilder {
     public static String getParamsString(Map<String, String> params)  {
@@ -19,7 +21,7 @@ public class ParameterStringBuilder {
                 result.append("&");
             }
         } catch (UnsupportedEncodingException e) {
-            // TODO: Handle error
+            // TODO: Handle exception
         }
 
         String resultString = result.toString();

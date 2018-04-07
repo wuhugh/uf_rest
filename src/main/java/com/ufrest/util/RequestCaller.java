@@ -1,9 +1,9 @@
-package com.ufrest.utils;
+package com.ufrest.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ufrest.error.UFRestException;
-import com.ufrest.resources.UFResponse;
-import com.ufrest.ResponseObject;
+import com.ufrest.exception.GatorException;
+import com.ufrest.dataobject.UFResponse;
+import com.ufrest.dataobject.ResponseObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -28,14 +28,14 @@ public class RequestCaller {
 
             ufResponse = objectMapper.readValue(url, UFResponse[].class);
         } catch (IOException e) {
-            throw new UFRestException(e);
+            throw new GatorException(e);
         } finally {
             if (connection != null) {
                 connection.disconnect();
             }
         }
 
-        return new ResponseObject(true, status, ufResponse, "Data successfully retrieved from " + scheduleOfCoursesURL);
+        return new ResponseObject(true, status, ufResponse, scheduleOfCoursesURL);
     }
 
 }

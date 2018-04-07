@@ -1,8 +1,8 @@
 package com.ufrest;
 
-import com.ufrest.error.UFRestException;
-import com.ufrest.utils.ParameterStringBuilder;
-import com.ufrest.utils.RequestCaller;
+import com.ufrest.exception.GatorException;
+import com.ufrest.util.ParameterStringBuilder;
+import com.ufrest.util.RequestCaller;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -53,7 +53,7 @@ public class Application  {
             }
         }
         else {
-            throw new UFRestException("Resource not found");
+            throw new GatorException("Course resource not found");
         }
 
         // TODO: Attach course filters request parameters
