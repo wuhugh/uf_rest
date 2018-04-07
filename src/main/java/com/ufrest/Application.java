@@ -1,11 +1,10 @@
 package com.ufrest;
 
-import com.ufrest.Util.ErrorHandler;
-import com.ufrest.Util.ParameterStringBuilder;
-import com.ufrest.Util.RequestCaller;
+import com.ufrest.exception.GatorException;
+import com.ufrest.util.ParameterStringBuilder;
+import com.ufrest.util.RequestCaller;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ import java.util.Map;
 @Controller
 @SpringBootApplication
 @SuppressWarnings("unused")
-public class Application implements ErrorController  {
+public class Application  {
 
     public static void main(String args[]) throws Exception {
         SpringApplication.run(Application.class, args);
@@ -44,11 +43,17 @@ public class Application implements ErrorController  {
             requestParameters.put("term", year + "5");
         }
         else if (semester.toUpperCase().equals("FALL")) {
-            requestParameters.put("category", "CWSP"); // The "regular" program is CWSP for this semester
-            requestParameters.put("term", "2188"); // For some reason the API is missing the 0 from 2018
+            if (year.equals("2018")) {
+                requestParameters.put("category", "CWSP"); // The "regular" program is CWSP for this semester
+                requestParameters.put("term", "2188"); // For some reason the API is missing the 0 from 2018
+            }
+            else {
+                requestParameters.put("category", "RES");
+                requestParameters.put("term", year + "8");
+            }
         }
         else {
-            return ErrorHandler.get404ErrorResponse("Semester value not found");
+            throw new GatorException("Course resource not found");
         }
 
         // TODO: Attach course filters request parameters
@@ -56,20 +61,4 @@ public class Application implements ErrorController  {
 
         return RequestCaller.callSOC(scheduleOfCoursesURL, requestParameters);
     }
-
-
-    // TODO: Maybe separate this from the main class
-    private static final String ERROR_PATH = "/error";
-
-    @RequestMapping(ERROR_PATH)
-    @ResponseBody
-    public Object error() {
-        return ErrorHandler.get404ErrorResponse("Resource not found");
-    }
-
-    @Override
-    public String getErrorPath() {
-        return ERROR_PATH;
-    }
-
 }
