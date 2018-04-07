@@ -1,7 +1,13 @@
-package com.ufrest;
+package com.ufrest.resources;
 
 import java.io.Serializable;
 
+/**
+ * This represents the JSON object that ultimately gets returned to the caller
+ * The response code is actually the response code from the call to UF, not this service
+ * (for example UF can return a 500 error but this service will still return a 200)
+ * The message is some arbitrary message that'll probably change
+ */
 public class ResponseObject implements Serializable {
     private boolean success;
     private int responseCode;
@@ -13,7 +19,6 @@ public class ResponseObject implements Serializable {
         this.responseCode = responseCode;
         this.data = data;
         this.message = message;
-
     }
 
     public boolean isSuccess() {
