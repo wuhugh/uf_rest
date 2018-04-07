@@ -1,4 +1,4 @@
-package com.ufrest.resources;
+package com.ufrest;
 
 import java.io.Serializable;
 

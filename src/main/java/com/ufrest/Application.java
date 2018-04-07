@@ -1,11 +1,10 @@
 package com.ufrest;
 
-import com.ufrest.utils.ErrorHandler;
+import com.ufrest.error.UFRestException;
 import com.ufrest.utils.ParameterStringBuilder;
 import com.ufrest.utils.RequestCaller;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ import java.util.Map;
 @Controller
 @SpringBootApplication
 @SuppressWarnings("unused")
-public class Application implements ErrorController  {
+public class Application  {
 
     public static void main(String args[]) throws Exception {
         SpringApplication.run(Application.class, args);
@@ -54,7 +53,7 @@ public class Application implements ErrorController  {
             }
         }
         else {
-            return ErrorHandler.get404ErrorResponse("Semester value not found");
+            throw new UFRestException("Resource not found");
         }
 
         // TODO: Attach course filters request parameters
@@ -62,20 +61,4 @@ public class Application implements ErrorController  {
 
         return RequestCaller.callSOC(scheduleOfCoursesURL, requestParameters);
     }
-
-
-    // TODO: Maybe separate this from the main class
-    private static final String ERROR_PATH = "/error";
-
-    @RequestMapping(ERROR_PATH)
-    @ResponseBody
-    public Object error() {
-        return ErrorHandler.get404ErrorResponse("Resource not found");
-    }
-
-    @Override
-    public String getErrorPath() {
-        return ERROR_PATH;
-    }
-
 }

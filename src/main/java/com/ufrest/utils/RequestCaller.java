@@ -1,6 +1,7 @@
 package com.ufrest.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufrest.error.UFRestException;
 import com.ufrest.resources.UFResponse;
 import com.ufrest.ResponseObject;
 
@@ -14,7 +15,7 @@ public class RequestCaller {
     private static URL url;
     private static HttpURLConnection connection = null;
     private static ObjectMapper objectMapper = new ObjectMapper();
-    private static int status = 0;
+    private static int status;
 
     public static Object callSOC(String scheduleOfCoursesURL, Map<String, String> requestParameters) {
         UFResponse[] ufResponse;
@@ -27,7 +28,7 @@ public class RequestCaller {
 
             ufResponse = objectMapper.readValue(url, UFResponse[].class);
         } catch (IOException e) {
-            return ErrorHandler.getExceptionResponse(e);
+            throw new UFRestException(e);
         } finally {
             if (connection != null) {
                 connection.disconnect();
